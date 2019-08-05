@@ -17,7 +17,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 '''
 
 from tkinter import *
-from libs.keys_actions import insert_mode
+from libs.keys_actions import *
 master = Tk()
 master.geometry("700x700")
 master.title("LuxarG")
@@ -48,6 +48,7 @@ text_field.focus()
 text_field.configure(state='disabled')
 
 text_field.bind('<F1>', lambda e :  insert_mode(master, text_field, show_status, '__INSERT_MODE__'))
+text_field.bind('<Escape>', lambda e :  stop_mode(master, text_field, show_status, '__STOP_MODE__'))
 
 
 text_field.config(bg='black', fg='lightgray', 
