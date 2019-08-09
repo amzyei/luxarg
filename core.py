@@ -30,7 +30,11 @@ master.config(bg='black')
 # font=('', 13)).pack(fill=X)
 
 show_status = Label() 
-show_status['text']='Please HIT <F1> for INSERT MODE'
+show_status['text']='__STOP_MODE__\nINSERT MODE : <F1> , SAVE MODE : <F2>'
+show_status['bg']='black'
+show_status['fg']='white'
+show_status['font']=('', 13)
+
 
 show_status.pack(fill='x')
 
@@ -49,11 +53,12 @@ text_field.configure(state='disabled')
 
 text_field.bind('<F1>', lambda e :  insert_mode(master, text_field, show_status, '__INSERT_MODE__'))
 text_field.bind('<Escape>', lambda e :  stop_mode(master, text_field, show_status, '__STOP_MODE__'))
+text_field.bind('<F2>', lambda e :  save_mode(master, text_field, show_status, '__SAVE_MODE__'))
 
 
 text_field.config(bg='black', fg='lightgray', 
                 padx=15, pady=0, 
-                relief=SUNKEN, font=('', 20), 
+                relief=SUNKEN, font=('ubuntu', 20), 
                 insertbackground='yellow', insertborderwidth=1,
                 
                 )
