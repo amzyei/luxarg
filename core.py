@@ -16,13 +16,17 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 '''
 
-from tkinter import *
+from tkinter import *   
 from libs.keys_actions import *
+
+    
 master = Tk()
 master.geometry("700x700")
 master.title("LuxarG")
 master.minsize(height=500, width=500)
 master.config(bg='black')
+
+
 
 
 # show_status = LabelFrame(master, bg='black', foreground='white', 
@@ -34,7 +38,6 @@ show_status['text']='__STOP_MODE__\nINSERT MODE : <F1> , SAVE MODE : <F2>'
 show_status['bg']='black'
 show_status['fg']='white'
 show_status['font']=('', 13)
-
 
 show_status.pack(fill='x')
 
@@ -51,17 +54,22 @@ text_field.focus()
 # DISABLED text box 
 text_field.configure(state='disabled')
 
+
 text_field.bind('<F1>', lambda e :  insert_mode(master, text_field, show_status, '__INSERT_MODE__'))
 text_field.bind('<Escape>', lambda e :  stop_mode(master, text_field, show_status, '__STOP_MODE__'))
 text_field.bind('<F2>', lambda e :  save_mode(master, text_field, show_status, '__SAVE_MODE__'))
+text_field.bind('<F3>', lambda e: open_mode(master, text_field, show_status, '__OPEN_MODE__'))
 
 
-text_field.config(bg='black', fg='lightgray', 
+
+text_field.config(bg='black', fg='white', 
                 padx=15, pady=0, 
-                relief=SUNKEN, font=('ubuntu', 20), 
+                relief=SUNKEN, 
                 insertbackground='yellow', insertborderwidth=1,
-                
+                font=('', 20)
                 )
+
+
 
 
 # text_field
