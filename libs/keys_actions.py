@@ -97,9 +97,3 @@ def open_mode(master, text_field, show_status, status):
     # return all
     return show_status, text_field.configure(state='normal')
 
-# def font_up(text_field, font_size):
-    
-#     font_size = font_size
-
-#     return text_field.config(font=('', font_size + 1))
-
