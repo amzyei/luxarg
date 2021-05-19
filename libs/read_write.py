@@ -17,7 +17,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 '''
 
 from tkinter import messagebox
-from os import chdir, path, read, register_at_fork, stat, system
+from os import chdir, path, read, register_at_fork, stat, system, umask
 from . import keys_actions
 
 
@@ -54,24 +54,16 @@ def writer(path_and_filename, text, widget_destroy):
             
             fin.close()
         
-        except:
-            message(path_and_filename, 'not saved ! %s' % 
-            OSError('Invalid path input!\nExample :\n/tmp/file_name.txt'))
+        except OSError as error :
+            message(path_and_filename, str(error)[10:])
+    
 
     return widget_destroy.destroy()
 
 
-# render the TRUE path file 
-def file_status(path_and_filename):
-    
-    # check file 
-    if path.isfile(path_and_filename):
-        return path_and_filename
-    else:
-        return  ''
 
 # read a file 
-def reader(path_and_filename, file_status, text_field, widget_destroy):
+def reader(path_and_filename, text_field, widget_destroy=None):
 
     # delete all the buffer and after open file 
     text_field.delete('1.0', 'end')
@@ -89,17 +81,17 @@ def reader(path_and_filename, file_status, text_field, widget_destroy):
 
     # if a file 
     else:
-        
         try:
 
             fin = open(path_and_filename, 'r')
             readed =  fin.read()
-            fin.close()
+
         
-        except:
-            message(path_and_filename, '%s' % 
-            OSError('Invalid path input!\nExample :\n/tmp/file_name.txt'))
-            
+        except OSError as error:
+            message('', str(error)[10:])
+   
+        fin.close()
+        
     try:    
         text_field.insert('1.0', str(readed))
         text_field.configure(state='disabled')

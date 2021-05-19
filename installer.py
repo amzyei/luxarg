@@ -1,4 +1,3 @@
-#!/usr/bin/python3 
 
 ''' 
 
@@ -19,17 +18,35 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 import urwid
 from os import system, getenv
 
+# quit from installed message
 def quit(key):
     if key in 'q':
         raise urwid.ExitMainLoop()
 
-# if system('cp -rf . ~/.luxarg ; sudo ln -s %s/.luxarg/core.py /usr/bin/luxarg' % getenv('HOME')) == 0:
-if (system('cp -rf . ~/.luxarg')) == 0:
+if (system('cp -rf . ~/.luxarg ; sudo ln -s %s/.luxarg/core.py /usr/bin/luxarg' % getenv('HOME'))) == 0:
+    
+    # install dependencies
+    system('pip install -r requirements.txt')
+    system('''
+        sudo apt install python3-tk -y  2> /dev/null;
+        sudo dnf install -y python3-tkinter -y  2> /dev/null;
+        sudo pacman -S tk -y 2> /dev/null;
+        sudo yum install -y tkinter  2> /dev/null;
+        sudo zypper in -y python-tk 2> /dev/null;
+            ''')    
+    # desktop application icon for menu 
+    system('sudo cp -rf ./xdg/luxarg.desktop /usr/share/applications')
+    system('cp -rf ./xdg/luxarg.desktop ~/.local/share/applications')
+    system("sudo cp -rf ./icon/luxarg.png /usr/share/icons/hicolor/256x256/apps/")
+    system("sudo cp -rf ./icon/luxarg.png /usr/share/icons/hicolor/256x256/apps/")
+    system("sudo cp -rf ./icon/luxarg.png /usr/share/icons/")
+
+    # installed successfuly message
     txt = urwid.Text(u'Luxarg INSTALLED successfuly !\nfor quit : \'q\'', align='left')
     fill = urwid.Filler(txt, 'middle')
     loop = urwid.MainLoop(fill, unhandled_input=quit)
     loop.run()
     
 else:
-    print('broken !')
+    print('status : broken !')
 

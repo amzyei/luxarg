@@ -16,9 +16,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 '''
 
-from os import read, stat, system
+
 from tkinter import *  
-from tkinter.messagebox import showerror
 from . import read_write
 
 # insert mode 
@@ -47,16 +46,16 @@ def save_mode(master, text_field, show_status, status ):
     
     # save mode box for user input 
     save_mode_window = Toplevel(master)
-    save_mode_window.title('Please enter your PATH and FILE NAME (SAVE):')
+    save_mode_window.title('PATH and FILE NAME (SAVE):')
     save_mode_window.resizable(False, False)
-    save_mode_window.geometry('400x25')
+    save_mode_window.geometry('500x25')
     
     # show stop mode status
     show_status['text'] = '%s\nSAVE path example : /tmp/file_name.txt' % status
     
     # for storing all the save_path variable value
     save_path = Entry(save_mode_window, font=('', 13))
-    save_path.config(bg='black', fg='white')
+    save_path.config(bg='black', fg='white', insertbackground='yellow')
     save_path.focus()
     save_path.pack(fill=BOTH)
 
@@ -75,20 +74,19 @@ def open_mode(master, text_field, show_status, status):
 
 
     open_file_window = Toplevel(master)
-    open_file_window.title('Please enter your PATH and FILE NAME (OPEN):')
+    open_file_window.title(' PATH and FILE NAME (OPEN):')
     open_file_window.resizable(False, False)
-    open_file_window.geometry('400x25')
+    open_file_window.geometry('450x25')
     
     # for storing all the file_path variable value
     file_path = Entry(open_file_window, font=('', 13))
-    file_path.config(bg='black', fg='white')
+    file_path.config(bg='black', fg='white', insertbackground='yellow')
     file_path.pack(fill=BOTH)
     file_path.focus()
     
     # open file with ENTER
-    file_status = ''
     file_path.bind('<Return>', 
-        lambda e : read_write.reader(file_path.get().strip(), file_status, text_field, open_file_window)
+        lambda e : read_write.reader(file_path.get().strip(),  text_field, open_file_window)
     )
     
     # show open mode status
@@ -96,4 +94,6 @@ def open_mode(master, text_field, show_status, status):
 
     # return all
     return show_status, text_field.configure(state='normal')
+
+
 

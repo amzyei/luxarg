@@ -1,0 +1,28 @@
+[Desktop Entry]
+path=/usr/bin
+Version=0.1
+Terminal=false
+Type=Application
+StartupNotify=true
+
+[Desktop Entry]
+Actions=Open;Tray;
+Categories=GTK;GNOME;Utility;
+Comment[en_US]=LUXARG editor
+Comment=LUXARG editor
+Exec=luxarg
+GenericName[en_US]=LUXARG editor
+GenericName=LUXARG editor
+Icon=luxarg
+Keywords=Terminal;LUXARG;luxarg;
+Name[en_US]=LUXARG editor
+Name=LUXARG editor
+StartupNotify=true
+StartupWMClass=luxarg
+Terminal=false
+Type=Application
+
+[Desktop Action Open]
+Exec=luxarg
+Name=Start LUXARG editor
+
