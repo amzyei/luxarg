@@ -15,8 +15,10 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 '''
 
-import urwid
 from os import system, getenv
+system('pip install -r requirements.txt')
+
+import urwid
 
 # quit from installed message
 def quit(key):
@@ -26,7 +28,6 @@ def quit(key):
 if (system('cp -rf . ~/.luxarg ; sudo ln -s %s/.luxarg/core.py /usr/bin/luxarg' % getenv('HOME'))) == 0:
     
     # install dependencies
-    system('pip install -r requirements.txt')
     system('''
         sudo apt install python3-tk -y  2> /dev/null;
         sudo dnf install -y python3-tkinter -y  2> /dev/null;
