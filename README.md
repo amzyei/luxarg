@@ -91,7 +91,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Running On Windows 10:
   
-    Simply run "LuxarG.exe"
+    Simply run "LuxarG.exe" for using Luxarg portable OR install system WIDE BY running "Setup.exe"
     
 
 # Running on Linux
