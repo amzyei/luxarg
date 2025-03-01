@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 '''
-AMZY-0 (M.Amin Azimi .K)
-Copyright (C) 2019-2021 luxarg AMZY-0 (M.Amin Azimi .K) and contributors
+AMZYEI (Amin Azimi)
+Copyright (C) 2019-2021 luxarg AMZYEI (Amin Azimi) and contributors
 
 Luxarg is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@ You should have received a copy of the GNU General Public License
 '''
 # line number
 def linenum(text_field, showline_stat):
-    '''Line status and chars COUNTER'''
+
     chars = len(text_field.get('1.0', 'end'))-1
     showline_stat['text'] = '%s char(s) | ' % chars
 

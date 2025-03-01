@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 '''
-AMZY-0 (M.Amin Azimi .K)
-Copyright (C) 2019-2021 luxarg AMZY-0 (M.Amin Azimi .K) and contributors
+AMZYEI (Amin Azimi)
+Copyright (C) 2019-2021 luxarg AMZYEI (Amin Azimi) and contributors
 
 Luxarg is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@ You should have received a copy of the GNU General Public License
 '''
 
 def open_mode_by_arg(text_field, show_status, io_mode, path_arg):
-    '''$ luxarg file_path/filename.txt'''
+
     text_field.configure(stat='normal')
 
     # open file with read mode

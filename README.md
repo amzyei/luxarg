@@ -9,14 +9,18 @@
 ![license](https://img.shields.io/github/license/amzy-0/luxarg)
 
 
-Luxarg is a keyboard-friendly text editor.
+LUXARG is another keyboard friendly text editor.
 
-The project was started in August 2019 and restarted on June 13 at 20:14:41, 2021.
+This project started at August 2019 and restarted at 2021 TODAY!
 
-Easy to use and user-friendly!
+Easy to use and user-friendly !
+
+
 
 
 # LUXARG support :
+![](https://www.iconarchive.com/download/i4233/benjigarner/softdimension/Windows.48.png) 
+*WINDOWS10*
 
 ![](https://icons.iconarchive.com/icons/tatice/operating-systems/48/Fedora-icon.png) 
 Fedora, 
@@ -47,9 +51,9 @@ Manjaro
 
 # Licensing
 
-AMZY-0 (M.Amin Azimi .K) 
+AMZYEI (Amin Azimi) 
 
-Copyright (C) (2019-2020-2021)  AMZY-0 (M.Amin Azimi .K) 
+Copyright (C) (2019-2025)  AMZYEI (Amin Azimi) 
 
 "Luxarg" (This program) is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -74,75 +78,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     HELP   MODE : <F4>
     DELETE ALL  : <Ctrl + 0>
     SELECT ALL  : <Ctrl + />
-    CURSOR RIGHT: <Ctrl + f> move the cursor forward one space.
-    CURSOR LEFT : <Ctrl + b> move the cursor backward one space.
+    CORSUR RIGHT: <Ctrl + f> move the cursor forward one space.
+    CORSUR LEFT : <Ctrl + b> move the cursor backward one space.
     Copy        : <Ctrl + c>
     Paste       : <Ctrl + v>
     Cut         : <Ctrl + w>
     UNDO        : <Ctrl + z>
     REDO        : <Ctrl + Shift + z>
-    HELP CLI    : luxarg <-h/--help>
+    HELP   CLI  : luxarg <-h/--help>
     ZOOM IN     : <Ctrl + equal(=)>
     ZOOM OUT    : <Ctrl + minus(-)>
 
-# INSTALLATION
-
-You must install "pip" before this step ...   
-
-
-    $ make 
-
-    
-# dependencies
-    
-    $ pip3 install -r requirements.txt
-
-# update method
-    
-    $ luxarg-update (v1.0)
-
-
-# Install pip
-    pip.txt
-
-
-# local build and execute
-
-
-
-### INSTALL PIP BEFORE THIS OPERATIONS
-****
-
-
-### Step (1)
-#### Ubuntu & Debian
-        $ sudo apt install python3-tk -y  
-
-
-
-#### Fedora
-	    $ sudo dnf install -y python3-tkinter 
-
-
-
-#### Arch
-	    $ sudo pacman -S tk 
-
-
-
-#### CentOS
-	    $ sudo yum install -y python3-tkinter 
-
-
-
-#### OpenSUSE
-	    $ sudo zypper in -y python-tk 
+# Running On Windows 10:
+  
+    Simply run "LuxarG.exe"
     
 
-### Step (2)
-#### Install dependancies (BY PIP)
-        $ pip install -Ur requirements.txt
-
-### Step (3)
-#### RUN core.py         
-        $ python3 core.py
+# Running on Linux
+    
+```
+    pip3 install -r requirements.txt
+    python3 main.py
+```
+**for installing pip on Linux, PLEASE SEE THE pip.txt**

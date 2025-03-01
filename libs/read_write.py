@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-''' AMZY-0 (M.Amin Azimi .K)
-Copyright (C) 2019-2021 luxarg AMZY-0 (M.Amin Azimi .K) and contributors
+''' AMZYEI (Amin Azimi)
+Copyright (C) 2019-2021 luxarg AMZYEI (Amin Azimi) and contributors
 
 Luxarg is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -45,7 +45,7 @@ def message(path_msg, text_msg):
 ####################################################
 # IO
 ####################################################
-def io_luxarg(path_and_filename, text, io_mode, text_field):
+def io_luxarg(path_and_filename, text, io_mode, textField):
     ''' Input and Output UNIT '''
 
     # if ~/<*>.<txt/py/c/cpp/...>
@@ -72,18 +72,16 @@ def io_luxarg(path_and_filename, text, io_mode, text_field):
 
     elif io_mode == 'r':
         # delete all the buffer and after open file
-        text_field.delete('1.0', 'end')
+        textField.delete('1.0', 'end')
 
 
 
         try:
-            with open(path_and_filename, io_mode) as fin:
-                readed =  fin.read()
-                text_field.insert('1.0', str(readed))
-                text_field.configure(state='disabled')
-
-        except UnicodeDecodeError as unicode:
-            message(path_and_filename, str(unicode))
+            fin = open(path_and_filename, io_mode)
+            readed =  fin.read()
+            textField.insert('1.0', str(readed))
+            textField.configure(state='disabled')
+            fin.close()
 
         except FileNotFoundError as error:
             message('', str(error)[10:])
@@ -92,7 +90,7 @@ def io_luxarg(path_and_filename, text, io_mode, text_field):
             message('', str(error)[10:])
 
 
-        text_field.configure(state='disabled')
+        textField.configure(state='disabled')
 
     # relational path for home
     elif io_mode=='w':
@@ -105,9 +103,7 @@ def io_luxarg(path_and_filename, text, io_mode, text_field):
             message(path_and_filename, 'saved !')
             fin.close()
 
-        
         except OSError as error :
             message(path_and_filename, str(error)[10:])
-        
 
-    return text_field.focus()
+    return textField.focus()
