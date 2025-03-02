@@ -1,12 +1,12 @@
 # luxarg :
 
-![issues](https://img.shields.io/github/issues/amzy-0/luxarg)
+![issues](https://img.shields.io/github/issues/amzyei/luxarg)
 
-![forks](https://img.shields.io/github/forks/amzy-0/luxarg)
+![forks](https://img.shields.io/github/forks/amzyei/luxarg)
 
-![stars](https://img.shields.io/github/stars/amzy-0/luxarg)
+![stars](https://img.shields.io/github/stars/amzyei/luxarg)
 
-![license](https://img.shields.io/github/license/amzy-0/luxarg)
+![license](https://img.shields.io/github/license/amzyei/luxarg)
 
 
 LUXARG is another keyboard friendly text editor.
