@@ -19,7 +19,7 @@ Easy to use and user-friendly !
 
 
 # LUXARG support :
-![](https://www.iconarchive.com/download/i4233/benjigarner/softdimension/Windows.48.png) 
+![](https://calibre-ebook.com/resources/img/windows_logo.png) 
 *WINDOWS10*
 
 ![](https://icons.iconarchive.com/icons/tatice/operating-systems/48/Fedora-icon.png) 
