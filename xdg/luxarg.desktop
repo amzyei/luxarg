@@ -1,6 +1,6 @@
 [Desktop Entry]
 path=/usr/bin
-Version=0.1
+Version=0.1.2
 Terminal=false
 Type=Application
 StartupNotify=true
@@ -26,3 +26,4 @@ Type=Application
 Exec=luxarg
 Name=Start LUXARG editor
 
+ 
