@@ -32,10 +32,34 @@ LUXARG supports:
 
 
 # INSTALLATION
-Run the installer script:
+Run the installer using the Makefile:
 ```
-$ python3 installer.py
+make install
 ```
+
+# MAKEFILE
+
+This project includes a `Makefile` to simplify installation and running the application.
+
+- To install LuxarG, run:
+```
+make install
+```
+This will:
+- Create the directory `/opt/luxarg/`
+- Copy the project files to `/opt/luxarg/`
+- Create a symlink for `main.py` as `/usr/bin/luxarg` if `main.py` exists
+- Copy the desktop application icon files to the appropriate system directories
+
+- To run the LuxarG application, use:
+```
+make run
+```
+This will execute the application by running:
+```
+python3 main.py
+```
+
 
 
 # Notes
