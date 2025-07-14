@@ -16,21 +16,37 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 '''
 
-from tkinter import messagebox
-from os import chdir, path, read, register_at_fork, stat, system, umask
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk
+
+from os import path
 from . import keys_actions
 
 
 def message(path_msg, text_msg):
-
-
+    dialog = None
     if text_msg == 'saved !':
-        msg = messagebox.showinfo('%s'%text_msg, 
-        message='%s  %s' % (path_msg, text_msg))
-    
+        dialog = Gtk.MessageDialog(
+            None,
+            0,
+            Gtk.MessageType.INFO,
+            Gtk.ButtonsType.OK,
+            text_msg
+        )
+        dialog.format_secondary_text(f"{path_msg}  {text_msg}")
     else:
-        msg = messagebox.showerror('%s'%text_msg, 
-        message='%s  %s' % (path_msg, text_msg))
+        dialog = Gtk.MessageDialog(
+            None,
+            0,
+            Gtk.MessageType.ERROR,
+            Gtk.ButtonsType.OK,
+            text_msg
+        )
+        dialog.format_secondary_text(f"{path_msg}  {text_msg}")
+
+    dialog.run()
+    dialog.destroy()
 
 
 def writer(path_and_filename, text, widget_destroy):
@@ -48,11 +64,9 @@ def writer(path_and_filename, text, widget_destroy):
     else:
         
         try:
-            fin = open(path_and_filename, 'w')
-            fin.write(text)
+            with open(path_and_filename, 'w') as fin:
+                fin.write(text)
             message(path_and_filename, 'saved !')
-            
-            fin.close()
         
         except OSError as error :
             message(path_and_filename, str(error)[10:])
@@ -65,8 +79,10 @@ def writer(path_and_filename, text, widget_destroy):
 # read a file 
 def reader(path_and_filename, text_field, widget_destroy=None):
 
-    # delete all the buffer and after open file 
-    text_field.delete('1.0', 'end')
+    # clear the buffer before open file 
+    buffer = text_field.get_buffer()
+    buffer.set_text("")
+
     # path_and_filename equal to EMPTY 
     if path_and_filename == '':
         path_and_filename = 'Field is empty !\nPlease HIT <F2> and enter your path and file name again ...'
@@ -82,23 +98,16 @@ def reader(path_and_filename, text_field, widget_destroy=None):
     # if a file 
     else:
         try:
-
-            fin = open(path_and_filename, 'r')
-            readed =  fin.read()
-
-        
+            with open(path_and_filename, 'r') as fin:
+                readed = fin.read()
         except OSError as error:
             message('', str(error)[10:])
-   
-        fin.close()
+            readed = ""
         
     try:    
-        text_field.insert('1.0', str(readed))
-        text_field.configure(state='disabled')
-        
-    
+        buffer.set_text(str(readed))
     except:
-        text_field.configure(state='disabled')
+        pass
         
     return widget_destroy.destroy()
 

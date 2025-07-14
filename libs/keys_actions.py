@@ -1,32 +1,17 @@
-#!/usr/bin/python3
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk, Gdk
 
-''' 
-
-Short description of this Python module.
-Longer description of this module.
-This program is free software: you can redistribute it and/or modify it under
-the terms of the GNU General Public License as published by the Free Software
-Foundation, either version 3 of the License, or (at your option) any later
-version.
-This program is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-You should have received a copy of the GNU General Public License along with
-this program. If not, see <http://www.gnu.org/licenses/>.
-
-'''
-
-
-from tkinter import *  
 from . import read_write
 
 # insert mode 
 def insert_mode(master, text_field, show_status, status ):
     # show insert mode status
-    show_status['text'] = '%s\nSTOP MODE : <ESC> , SAVE MODE : <F2>' % status
+    show_status.set_text('%s\nSTOP MODE : <ESC> , SAVE MODE : <F2>' % status)
     
     #return all 
-    return text_field.configure(state='normal'), show_status
+    text_field.set_editable(True)
+    return text_field, show_status
 
 
 # stop mode 
@@ -34,66 +19,82 @@ def stop_mode(master, text_field, show_status, status ):
     
     # show stop mode status
 
-    show_status['text'] = '%s\nSAVE MODE : <F2> , INSERT MODE : <F1>' % status
+    show_status.set_text('%s\nSAVE MODE : <F2> , INSERT MODE : <F1>' % status)
 
 
     # return all 
-    return text_field.configure(state='disabled'), show_status
+    text_field.set_editable(False)
+    return text_field, show_status
 
 
 # stop mode 
 def save_mode(master, text_field, show_status, status ):
     
     # save mode box for user input 
-    save_mode_window = Toplevel(master)
-    save_mode_window.title('PATH and FILE NAME (SAVE):')
-    save_mode_window.resizable(False, False)
-    save_mode_window.geometry('500x25')
+    save_mode_window = Gtk.Window(title='PATH and FILE NAME (SAVE):')
+    save_mode_window.set_resizable(False)
+    save_mode_window.set_default_size(500, 25)
     
     # show stop mode status
-    show_status['text'] = '%s\nSAVE path example : /tmp/file_name.txt' % status
+    show_status.set_text('%s\nSAVE path example : /tmp/file_name.txt' % status)
     
     # for storing all the save_path variable value
-    save_path = Entry(save_mode_window, font=('', 13))
-    save_path.config(bg='black', fg='white', insertbackground='yellow')
-    save_path.focus()
-    save_path.pack(fill=BOTH)
+    save_path = Gtk.Entry()
+    save_path.set_property("primary-icon-name", "document-save")
+    save_path.set_hexpand(True)
+    save_path.set_margin_top(2)
+    save_path.set_margin_bottom(2)
+    save_path.set_margin_start(2)
+    save_path.set_margin_end(2)
+    save_path.grab_focus()
+    
+    box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+    box.pack_start(save_path, True, True, 0)
+    save_mode_window.add(box)
+    save_mode_window.show_all()
 
     # save file with ENTER
-    save_path.bind('<Return>', lambda e : 
-        read_write.writer(save_path.get().strip(),
-        text_field.get('1.0', 'end').strip(),
+    def on_save_path_activate(entry):
+        read_write.writer(entry.get_text().strip(),
+        text_field.get_buffer().get_text(text_field.get_buffer().get_start_iter(), text_field.get_buffer().get_end_iter(), True).strip(),
         save_mode_window)
-    )
+    save_path.connect("activate", on_save_path_activate)
 
     # return all 
-    return text_field.configure(state='disabled'), show_status
+    text_field.set_editable(False)
+    return text_field, show_status
 
 
 def open_mode(master, text_field, show_status, status):
 
 
-    open_file_window = Toplevel(master)
-    open_file_window.title(' PATH and FILE NAME (OPEN):')
-    open_file_window.resizable(False, False)
-    open_file_window.geometry('450x25')
+    open_file_window = Gtk.Window(title=' PATH and FILE NAME (OPEN):')
+    open_file_window.set_resizable(False)
+    open_file_window.set_default_size(450, 25)
     
     # for storing all the file_path variable value
-    file_path = Entry(open_file_window, font=('', 13))
-    file_path.config(bg='black', fg='white', insertbackground='yellow')
-    file_path.pack(fill=BOTH)
-    file_path.focus()
+    file_path = Gtk.Entry()
+    file_path.set_property("primary-icon-name", "document-open")
+    file_path.set_hexpand(True)
+    file_path.set_margin_top(2)
+    file_path.set_margin_bottom(2)
+    file_path.set_margin_start(2)
+    file_path.set_margin_end(2)
+    file_path.grab_focus()
     
+    box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+    box.pack_start(file_path, True, True, 0)
+    open_file_window.add(box)
+    open_file_window.show_all()
+
     # open file with ENTER
-    file_path.bind('<Return>', 
-        lambda e : read_write.reader(file_path.get().strip(),  text_field, open_file_window)
-    )
+    def on_file_path_activate(entry):
+        read_write.reader(entry.get_text().strip(),  text_field, open_file_window)
+    file_path.connect("activate", on_file_path_activate)
     
     # show open mode status
-    show_status['text'] = '%s\nSAVE MODE : <F2> , INSERT MODE : <F1>' % status
+    show_status.set_text('%s\nSAVE MODE : <F2> , INSERT MODE : <F1>' % status)
 
     # return all
-    return show_status, text_field.configure(state='normal')
-
-
-
+    text_field.set_editable(True)
+    return show_status, text_field

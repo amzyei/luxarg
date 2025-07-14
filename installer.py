@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 '''
 
 from os import system, getenv
-system('pip install -r requirements.txt')
+system('pip install -r requirements.txt --bre')
 
 import urwid
 

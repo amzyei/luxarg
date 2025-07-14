@@ -1,24 +1,18 @@
 # luxarg :
 
 
-LUXARG is another keyboard friendly text editor.
+LUXARG is a keyboard-friendly text editor.
 
-This project started at August 2019 and restarted at 2021 TODAY!
+This project started in August 2019 and was restarted in 2021.
 
-Easy to use and userfriendly !
+Easy to use and user-friendly!
 
+LUXARG supports:
 
-
-
-LUXARG support :
-
-Fedora, CENTOS and RedHat,
-
-Debian and Ubuntu,
-
-OpenSUSE,
-
-Arch and Manjaro, ...
+- Fedora, CENTOS, and RedHat
+- Debian and Ubuntu
+- OpenSUSE
+- Arch and Manjaro
 
 
 # ICON
@@ -26,25 +20,23 @@ Arch and Manjaro, ...
 ![ICON](icon/luxarg.png)
 
 
-# screenshot :
+# Screenshot :
 
 ![screenshot](screenshot/1.png)
 
 
 # KEYS : 
-    INSERT MODE : <F1>
-    SAVE   MODE : <F2>
-    OPEN   MODE : <F3>
+- INSERT MODE : <F1>
+- SAVE MODE : <F2>
+- OPEN MODE : <F3>
+
 
 # INSTALLATION
-    $ python<3X> installer.py
+Run the installer script:
+```
+$ python3 installer.py
+```
 
-# dependencies
-    $ pip3 install -r requirements.txt
 
-# update method
-    $ cd ~/.luxarg
-    $ python<3X> update.py
-
-# Install pip
-    pip.txt
+# Notes
+This is a simple pure Python and keyboard-friendly text editor solution.
