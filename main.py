@@ -45,6 +45,13 @@ def main():
     show_status.set_name("status_label")
     toolbar.pack_start(show_status, True, True, 0)
 
+    # Entry for path and filename input (hidden by default)
+    path_entry = Gtk.Entry()
+    path_entry.set_placeholder_text("Enter path and filename here...")
+    path_entry.set_hexpand(True)
+    path_entry.set_no_show_all(True)  # So we can show/hide manually
+    toolbar.pack_start(path_entry, True, True, 0)
+
     # Create scrolled window
     scrolled_window = Gtk.ScrolledWindow()
     scrolled_window.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
@@ -73,20 +80,32 @@ def main():
         if keyval == Gdk.KEY_F1:
             insert_mode(master, text_field, show_status, '__INSERT_MODE__')
             show_status.set_text("📝 INSERT MODE | ⏹️ STOP MODE: ESC | 💾 SAVE MODE: F2 | 📂 OPEN MODE: F3")
+            # Hide path entry on insert mode
+            path_entry.hide()
+            # Set focus to text_field
+            text_field.grab_focus()
             return True
         # Escape
         elif keyval == Gdk.KEY_Escape:
             stop_mode(master, text_field, show_status, '__STOP_MODE__')
             show_status.set_text("⏹️ STOP MODE | 📝 INSERT MODE: F1 | 💾 SAVE MODE: F2 | 📂 OPEN MODE: F3")
+            # Hide path entry on stop mode
+            path_entry.hide()
             return True
         # F2
         elif keyval == Gdk.KEY_F2:
-            save_mode(master, text_field, show_status, '__SAVE_MODE__')
+            # Show path entry for save mode
+            path_entry.show()
+            path_entry.grab_focus()
+            save_mode(master, text_field, show_status, '__SAVE_MODE__', path_entry)
             show_status.set_text("💾 SAVE MODE | 📝 INSERT MODE: F1 | ⏹️ STOP MODE: ESC | 📂 OPEN MODE: F3")
             return True
         # F3
         elif keyval == Gdk.KEY_F3:
-            open_mode(master, text_field, show_status, '__OPEN_MODE__')
+            # Show path entry for open mode
+            path_entry.show()
+            path_entry.grab_focus()
+            open_mode(master, text_field, show_status, '__OPEN_MODE__', path_entry)
             show_status.set_text("📂 OPEN MODE | 📝 INSERT MODE: F1 | ⏹️ STOP MODE: ESC | 💾 SAVE MODE: F2")
             return True
         return False
@@ -105,6 +124,9 @@ def main():
             message('', str(error)[10:])
     else:
         text_field.set_editable(False)
+
+    # Hide path entry initially
+    path_entry.hide()
 
     # Show all widgets
     master.show_all()
