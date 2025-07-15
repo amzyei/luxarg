@@ -28,16 +28,40 @@ def stop_mode(master, text_field, show_status, status ):
 
 
 # stop mode 
-def save_mode(master, text_field, show_status, status ):
-    
+def save_mode(master, text_field, show_status, status, path_entry=None):
+    # If path_entry is provided, use it instead of creating a new window
+    if path_entry:
+        show_status.set_text('%s\nSAVE path example : /tmp/file_name.txt' % status)
+
+        def on_save_path_activate(entry):
+            read_write.writer(entry.get_text().strip(),
+                              text_field.get_buffer().get_text(text_field.get_buffer().get_start_iter(),
+                                                              text_field.get_buffer().get_end_iter(), True).strip(),
+                              None)  # No window to destroy
+            entry.set_text("")
+            entry.hide()
+            stop_mode(master, text_field, show_status, '__STOP_MODE__')
+            show_status.set_text("⏹️ STOP MODE | 📝 INSERT MODE: F1 | 💾 SAVE MODE: F2 | 📂 OPEN MODE: F3")
+
+        # Disconnect previous handlers to avoid multiple calls
+        for handler_id in path_entry.handler_ids if hasattr(path_entry, 'handler_ids') else []:
+            path_entry.disconnect(handler_id)
+        path_entry.handler_ids = []
+        handler_id = path_entry.connect("activate", on_save_path_activate)
+        path_entry.handler_ids.append(handler_id)
+
+        text_field.set_editable(False)
+        return text_field, show_status
+
+    # Original code if no path_entry provided
     # save mode box for user input 
     save_mode_window = Gtk.Window(title='PATH and FILE NAME (SAVE):')
     save_mode_window.set_resizable(False)
     save_mode_window.set_default_size(500, 25)
-    
+
     # show stop mode status
     show_status.set_text('%s\nSAVE path example : /tmp/file_name.txt' % status)
-    
+
     # for storing all the save_path variable value
     save_path = Gtk.Entry()
     save_path.set_property("primary-icon-name", "document-save")
@@ -47,7 +71,7 @@ def save_mode(master, text_field, show_status, status ):
     save_path.set_margin_start(2)
     save_path.set_margin_end(2)
     save_path.grab_focus()
-    
+
     box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     box.pack_start(save_path, True, True, 0)
     save_mode_window.add(box)
@@ -56,8 +80,9 @@ def save_mode(master, text_field, show_status, status ):
     # save file with ENTER
     def on_save_path_activate(entry):
         read_write.writer(entry.get_text().strip(),
-        text_field.get_buffer().get_text(text_field.get_buffer().get_start_iter(), text_field.get_buffer().get_end_iter(), True).strip(),
-        save_mode_window)
+                          text_field.get_buffer().get_text(text_field.get_buffer().get_start_iter(),
+                                                          text_field.get_buffer().get_end_iter(), True).strip(),
+                          save_mode_window)
     save_path.connect("activate", on_save_path_activate)
 
     # return all 
@@ -65,13 +90,31 @@ def save_mode(master, text_field, show_status, status ):
     return text_field, show_status
 
 
-def open_mode(master, text_field, show_status, status):
 
+
+def open_mode(master, text_field, show_status, status, path_entry=None):
+    if path_entry:
+        def on_file_path_activate(entry):
+            read_write.reader(entry.get_text().strip(), text_field, None)  # No window to destroy
+            entry.set_text("")
+            entry.hide()
+            stop_mode(master, text_field, show_status, '__STOP_MODE__')
+            show_status.set_text("⏹️ STOP MODE | 📝 INSERT MODE: F1 | 💾 SAVE MODE: F2 | 📂 OPEN MODE: F3")
+
+        # Disconnect previous handlers to avoid multiple calls
+        for handler_id in path_entry.handler_ids if hasattr(path_entry, 'handler_ids') else []:
+            path_entry.disconnect(handler_id)
+        path_entry.handler_ids = []
+        handler_id = path_entry.connect("activate", on_file_path_activate)
+        path_entry.handler_ids.append(handler_id)
+
+        text_field.set_editable(True)
+        return show_status, text_field
 
     open_file_window = Gtk.Window(title=' PATH and FILE NAME (OPEN):')
     open_file_window.set_resizable(False)
     open_file_window.set_default_size(450, 25)
-    
+
     # for storing all the file_path variable value
     file_path = Gtk.Entry()
     file_path.set_property("primary-icon-name", "document-open")
@@ -81,7 +124,7 @@ def open_mode(master, text_field, show_status, status):
     file_path.set_margin_start(2)
     file_path.set_margin_end(2)
     file_path.grab_focus()
-    
+
     box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     box.pack_start(file_path, True, True, 0)
     open_file_window.add(box)
@@ -89,9 +132,9 @@ def open_mode(master, text_field, show_status, status):
 
     # open file with ENTER
     def on_file_path_activate(entry):
-        read_write.reader(entry.get_text().strip(),  text_field, open_file_window)
+        read_write.reader(entry.get_text().strip(), text_field, open_file_window)
     file_path.connect("activate", on_file_path_activate)
-    
+
     # show open mode status
     show_status.set_text('%s\nSAVE MODE : <F2> , INSERT MODE : <F1>' % status)
 
