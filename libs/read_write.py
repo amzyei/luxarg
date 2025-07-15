@@ -71,8 +71,8 @@ def writer(path_and_filename, text, widget_destroy):
         except OSError as error :
             message(path_and_filename, str(error)[10:])
     
-
-    return widget_destroy.destroy()
+    if widget_destroy is not None:
+        return widget_destroy.destroy()
 
 
 
@@ -109,5 +109,6 @@ def reader(path_and_filename, text_field, widget_destroy=None):
     except:
         pass
         
-    return widget_destroy.destroy()
+    if widget_destroy is not None:
+        return widget_destroy.destroy()
 
